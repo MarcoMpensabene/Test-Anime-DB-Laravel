@@ -5,90 +5,66 @@ namespace App\Console\Commands;
 use App\Models\Anime;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
-use JsonMachine\Exception\JsonMachineException;
-
-
-
-
+use JsonMachine\Items;
+use JsonMachine\JsonDecoder\ExtJsonDecoder;
 
 class ImportAnimeData extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'app:import-anime-data';
+    protected $description = 'Import anime data from JSON file';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Command description';
-
-    /**
-     * Execute the console command.
-     */
     public function handle()
     {
         $jsonFile = storage_path('data/anime-offline-database.json');
 
         if (!file_exists($jsonFile)) {
-            $this->error("Il file JSON non esiste nel percorso specificato: $jsonFile");
+            $this->error("JSON file does not exist at the specified path: $jsonFile");
             return;
         }
 
-        $jsonContent = file_get_contents($jsonFile);
-        $data = json_decode($jsonContent, true);
-
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            $this->error("Errore nel parsing del JSON: " . json_last_error_msg());
-            return;
-        }
-
-        if (!isset($data['data']) || !is_array($data['data'])) {
-            $this->error("La struttura del JSON non è come prevista. Manca la chiave 'data' o non è un array.");
-            return;
-        }
+        $items = Items::fromFile($jsonFile, ['pointer' => '/data', 'decoder' => new ExtJsonDecoder(true)]);
 
         $count = 0;
-        DB::beginTransaction();
+        $batchSize = 1000;
+        $batch = [];
 
-        try {
-            foreach ($data['data'] as $animeData) {
-                if (!is_array($animeData)) {
-                    $this->warn("Trovato un elemento non valido, lo salto.");
-                    continue;
-                }
+        foreach ($items as $animeData) {
+            $batch[] = $this->prepareAnimeData($animeData);
+            $count++;
 
-                Anime::create([
-                    'title' => $animeData['title'] ?? '',
-                    'sources' => json_encode($animeData['sources'] ?? []),
-                    'type' => $animeData['type'] ?? '',
-                    'episodes' => $animeData['episodes'] ?? 0,
-                    'status' => $animeData['status'] ?? '',
-                    'anime_season' => json_encode($animeData['animeSeason'] ?? []),
-                    'picture' => $animeData['picture'] ?? '',
-                    'thumbnail' => $animeData['thumbnail'] ?? '',
-                    'synonyms' => json_encode($animeData['synonyms'] ?? []),
-                    'related_anime' => json_encode($animeData['relatedAnime'] ?? []),
-                    'tags' => json_encode($animeData['tags'] ?? []),
-                ]);
-
-                $count++;
-                if ($count % 1000 == 0) {
-                    $this->info("Importati $count anime...");
-                    DB::commit();
-                    DB::beginTransaction();
-                }
+            if (count($batch) >= $batchSize) {
+                $this->insertBatch($batch);
+                $batch = [];
+                $this->info("Imported $count anime...");
             }
-
-            DB::commit();
-            $this->info("Importazione completata. Totale anime importati: $count");
-        } catch (\Exception $e) {
-            DB::rollBack();
-            $this->error("Errore durante l'importazione: " . $e->getMessage());
         }
+
+        if (!empty($batch)) {
+            $this->insertBatch($batch);
+        }
+
+        $this->info("Import completed. Total anime imported: $count");
+    }
+
+    private function prepareAnimeData($animeData)
+    {
+        return [
+            'title' => $animeData['title'] ?? '',
+            'sources' => json_encode($animeData['sources'] ?? []),
+            'type' => $animeData['type'] ?? '',
+            'episodes' => $animeData['episodes'] ?? 0,
+            'status' => $animeData['status'] ?? '',
+            'anime_season' => json_encode($animeData['animeSeason'] ?? []),
+            'picture' => $animeData['picture'] ?? '',
+            'thumbnail' => $animeData['thumbnail'] ?? '',
+            'synonyms' => json_encode($animeData['synonyms'] ?? []),
+            'related_anime' => json_encode($animeData['relatedAnime'] ?? []),
+            'tags' => json_encode($animeData['tags'] ?? []),
+        ];
+    }
+
+    private function insertBatch($batch)
+    {
+        DB::table('animes')->insert($batch);
     }
 }
