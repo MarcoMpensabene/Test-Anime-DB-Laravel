@@ -24,7 +24,7 @@
                         <tr>
                             <td>
                                 <strong>{{ $anime->title }}</strong>
-                                <small class="d-block text-muted">Synonyms: {{ implode(', ', $anime->synonyms)}}</small>
+                                <small class="d-block text-muted">Synonyms: {{implode(', ', $anime->synonyms)}}</small>
                             </td>
                             <td>{{ $anime->type }}</td>
                             <td>{{ $anime->episodes }}</td>
@@ -35,7 +35,11 @@
                                 <div class="btn-group" role="group">
                                     <a  href="{{ route('admin.animes.show' ,  $anime)}}" class="btn btn-xs btn-info"  title="View">View</a>
                                     <a href="{{ route('admin.animes.edit' ,  $anime)}}" class="btn btn-xs btn-primary"  title="Edit">Edit</a>
-                                    <a  class="btn btn-xs btn-danger"  title="Delete">Delete</a>
+                                    <form action="{{ route('admin.animes.destroy', $anime) }}" method="POST" class="delete-form">
+                                        @method("DELETE")
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger btn-xs">Delete</button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>

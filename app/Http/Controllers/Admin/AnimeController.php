@@ -66,8 +66,10 @@ class AnimeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Anime $anime)
     {
-        //
+        $anime->delete();
+
+        return redirect()->route('admin.animes.index')->with('message', "N:" . $anime->id . " " . $anime->title . " Has Been Deleted");
     }
 }

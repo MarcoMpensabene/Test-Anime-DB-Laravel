@@ -26,19 +26,32 @@
                 </div>
                 <div class="mb-3">
                     <label for="status">Anime Status</label>
-                    <input class="form-control form-control-sm" type="select" placeholder="Anime Status" aria-label="Anime Status" name="status" id="status" required>
+                    <input class="form-control form-control-sm" type="select" placeholder="Anime Status" aria-label="Anime Status" name="status" id="status" >
                 </div>
                 <div class="mb-3">
-                    <label for="anime_season">Anime Season</label>
-                    <input class="form-control form-control-sm" type="text" placeholder="Anime Season" aria-label="Anime Season" name="anime_season" id="anime_season" required>
+                    <label for="anime_season[]">Anime Season</label>
+                    <input class="form-control form-control-sm" type="text" placeholder="Anime Season" aria-label="Anime Season" name="anime_season[]" id="anime_season[]" >
                 </div>
                 <div class="mb-3">
                     <label for="thumbnail">Anime Season</label>
-                    <input class="form-control form-control-sm" type="url" placeholder="Anime thumbnail" aria-label="Anime thumbnail" name="thumbnail" id="thumbnail" >
+                    <input class="form-control form-control-sm" type="text" placeholder="Anime thumbnail" aria-label="Anime thumbnail" name="thumbnail" id="thumbnail" >
                 </div>
                 <div class="mb-3">
+                    <label for="picture">Anime picture</label>
+                    <input class="form-control form-control-sm" type="text" placeholder="Anime picture" aria-label="Anime picture" name="picture" id="picture" >
+                </div>
+                <div class="mb-3">
+                    <label for="synonyms[]">Anime synonyms</label>
+                    <input class="form-control form-control-sm" type="text" placeholder="Anime picture" aria-label="Anime picture" name="synonyms[]" id="synonyms[]" >
+                </div>
+                <div class="mb-3">
+                    <label for="related_anime">Related-Anime</label>
+                    <input class="form-control form-control-sm" type="text" placeholder="Anime picture" aria-label="Anime picture" name="related_anime" id="related_anime" >
+                </div>
+
+                <div class="mb-3">
                     <label for="tags">Anime tags</label>
-                    <input class="form-control form-control-sm" type="url" placeholder="Anime tags" aria-label="Anime tags" name="tags" id="tags" >
+                    <input class="form-control form-control-sm" type="text" placeholder="Anime tags" aria-label="Anime tags" name="tags" id="tags" >
                 </div>
 
 
