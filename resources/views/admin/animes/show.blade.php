@@ -2,32 +2,46 @@
 
 @section('content')
 <div class="container mt-4">
-    <div class="card shadow-sm">
-        <div class="row g-0">
-            <div class="col-md-2">
-                <img src="{{ $anime->thumbnail }}" class="img-fluid rounded-start h-100 object-fit-cover" alt="{{ $anime->title }}">
+    <div class="card">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <img src="{{ $anime->picture }}" class="card-img" alt="{{ $anime->title }}">
             </div>
             <div class="col-md-8">
                 <div class="card-body">
                     <h2 class="card-title">{{ $anime->title }}</h2>
-                    <p class="card-text text-muted mb-3">
-                        <small>Synonyms: {{ implode(', ', $anime->synonyms) }}</small>
-                    </p>
-                    <div class="row mb-3">
-                        <div class="col-sm-6">
-                            <p class="mb-1"><strong>Type:</strong> {{ $anime->type }}</p>
-                            <p class="mb-1"><strong>Episodes:</strong> {{ $anime->episodes }}</p>
-                        </div>
-                        <div class="col-sm-6">
-                            <p class="mb-1"><strong>Status:</strong>
-                                <span class="badge bg-{{ $anime->status == 'ONGOING' ? 'success' : ($anime->status == 'UPCOMING' ? 'info' : 'secondary') }}">
-                                    {{ $anime->status }}
-                                </span>
-                            </p>
-                            <p class="mb-1"><strong>Season:</strong> {{ implode(', ', $anime->anime_season) }}</p>
-                        </div>
-                    </div>
-                    </div>
+                    <p class="card-text"><strong>Type:</strong> {{ $anime->type }}</p>
+                    <p class="card-text"><strong>Episodes:</strong> {{ $anime->episodes }}</p>
+                    <p class="card-text"><strong>Status:</strong> {{ $anime->status }}</p>
+                    <p class="card-text"><strong>Season:</strong> {{ $anime->season}} </p>
+
+                    <h5 class="mt-3">Synonyms</h5>
+                    <ul class="list-inline">
+                        @foreach ($anime->synonyms as $animeSynonyme)
+                            <li class="list-inline-item">{{$animeSynonyme}}</li>
+                        @endforeach
+                    </ul>
+
+                    <h5 class="mt-3">Tags</h5>
+                    <ul class="list-inline">
+                        @foreach ($anime->tags as $animeTag)
+                            <li class="list-inline-item"><span class="badge bg-dark ">{{$animeTag}}</span></li>
+                        @endforeach
+                    </ul>
+
+                    <h5 class="mt-3">Related Anime</h5>
+                    <ul>
+                        @foreach ($anime->related_anime as $relatedAnime)
+                            <li>{{$relatedAnime}}</li>
+                        @endforeach
+                    </ul>
+
+                    <h5 class="mt-3">Sources</h5>
+                    <ul>
+                        @foreach ($anime->sources as $animeSource)
+                            <li><a href="{{$animeSource}}" target="_blank">{{$animeSource}}</a></li>
+                        @endforeach
+                    </ul>
                 </div>
             </div>
         </div>

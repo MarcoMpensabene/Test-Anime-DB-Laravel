@@ -16,17 +16,29 @@
                     <label for="sources">Anime source</label>
                     <input class="form-control form-control-sm" type="text" placeholder="Anime source" aria-label="Anime source" name="sources" id="sources" required>
                 </div>
-                <div class="mb-3">
-                    <label for="type">Anime Type</label>
-                    <input class="form-control form-control-sm" type="text" placeholder="Anime type" aria-label="Anime type" name="type" id="type" required>
+                <div>
+                    <label for="type">AnimeType</label>
+                    <select name="type" id="type" class="form-control">
+                        <option value="TV">TV</option>
+                        <option value="MOVIE">Movie</option>
+                        <option value="OVA">OVA</option>
+                        <option value="ONA">ONA</option>
+                        <option value="SPECIAL">Special</option>
+                        <option value="UNKNOWN">Unknown</option>
+                    </select>
                 </div>
                 <div class="mb-3">
                     <label for="episodes">Anime Episode</label>
                     <input class="form-control form-control-sm" type="number" placeholder="AnimeEpisode" aria-label="AnimeEpisode" name="episodes" id="episodes" required>
                 </div>
                 <div class="mb-3">
-                    <label for="status">Anime Status</label>
-                    <input class="form-control form-control-sm" type="select" placeholder="Anime Status" aria-label="Anime Status" name="status" id="status" >
+                    <label for="status">AnimeStatus</label>
+                    <select name="status" id="status" class="form-control">
+                        <option value="FINISHED">FINISHED</option>
+                        <option value="ONGOING">ONGOING</option>
+                        <option value="UPCOMING">UPCOMING</option>
+                        <option value="UNKNOWN">UNKNOWN</option>
+                    </select>
                 </div>
                 <div class="mb-3">
                     <label for="anime_season[]">Anime Season</label>
