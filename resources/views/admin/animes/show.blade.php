@@ -18,7 +18,7 @@
                     <h5 class="mt-3">Synonyms</h5>
                     <ul class="list-inline">
                         @foreach ($anime->synonyms as $animeSynonyme)
-                            <li class="list-inline-item">{{$animeSynonyme}}</li>
+                            <li class="list-inline-item">-{{$animeSynonyme}}-</li>
                         @endforeach
                     </ul>
 
@@ -32,7 +32,7 @@
                     <h5 class="mt-3">Related Anime</h5>
                     <ul>
                         @foreach ($anime->related_anime as $relatedAnime)
-                            <li>{{$relatedAnime}}</li>
+                            <li><a href="{{$relatedAnime}}">{{$relatedAnime}}</a></li>
                         @endforeach
                     </ul>
 
