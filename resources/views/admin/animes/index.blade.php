@@ -24,7 +24,7 @@
                         <tr>
                             <td>
                                 <strong>{{ $anime->title }}</strong>
-                                <small class="d-block text-muted">Synonyms: {{implode(', ', $anime->synonyms)}}</small>
+                                <small class="d-block text-muted">Synonyms: {{is_array($anime->synonyms) ?  implode(', ', $anime->synonyms) : $anime->synonyms}}</small>
                             </td>
                             <td>{{ $anime->type }}</td>
                             <td>{{ $anime->episodes }}</td>
