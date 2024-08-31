@@ -33,7 +33,7 @@
                             <td><img src="{{ $anime->thumbnail }}" alt="{{ $anime->title }}" class="img-thumbnail" style="max-width: 100px;"></td>
                             <td>
                                 <div class="btn-group" role="group">
-                                    <a  class="btn btn-xs btn-info"  title="View">View</a>
+                                    <a  href="{{ route('admin.animes.show' ,  $anime)}}" class="btn btn-xs btn-info"  title="View">View</a>
                                     <a  class="btn btn-xs btn-primary"  title="Edit">Edit</a>
                                     <a  class="btn btn-xs btn-danger"  title="Delete">Delete</a>
                                 </div>

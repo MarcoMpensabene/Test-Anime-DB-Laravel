@@ -37,10 +37,10 @@ class AnimeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Anime $anime)
     {
 
-        return view("admin.animes.show");
+        return view('admin.animes.show', compact('anime'));
     }
 
     /**
