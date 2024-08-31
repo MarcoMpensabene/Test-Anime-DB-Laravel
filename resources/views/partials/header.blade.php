@@ -10,9 +10,17 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav me-auto">
-                <a class="nav-link " href="#" role="button">
-                    Homepage
-                </a>
+
+                @if (Route::has('admin.animes.index'))
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('admin.animes.index') }}">{{ __('AnimeList') }}</a>
+                </li>
+                @endif
+                @if (Route::has('admin.animes.create'))
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('admin.animes.create') }}">{{ __('AddNewAnime') }}</a>
+                </li>
+                @endif
             </ul>
 
             <!-- Right Side Of Navbar -->

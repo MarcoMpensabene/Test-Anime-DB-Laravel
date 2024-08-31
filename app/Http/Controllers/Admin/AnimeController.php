@@ -22,7 +22,8 @@ class AnimeController extends Controller
      */
     public function create()
     {
-        return view("admin.animes.create");
+        $animes = new Anime();
+        return view("admin.animes.create", compact('animes'));
     }
 
     /**
