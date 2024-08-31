@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Anime;
 use Illuminate\Http\Request;
+use stdClass;
 
 class AnimeController extends Controller
 {
@@ -22,8 +23,8 @@ class AnimeController extends Controller
      */
     public function create()
     {
-        $animes = new Anime();
-        return view("admin.animes.create", compact('animes'));
+        $anime = new Anime();
+        return view("admin.animes.create", compact('anime'));
     }
 
     /**
