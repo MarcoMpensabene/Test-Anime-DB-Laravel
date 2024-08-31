@@ -31,7 +31,9 @@ class AnimeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $newAnime = Anime::create($data);
+        return redirect()->route('admin.animes.show', $newAnime);
     }
 
     /**
@@ -46,17 +48,19 @@ class AnimeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Anime $anime)
     {
-        //
+        return view('admin.animes.edit', compact('anime'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Anime $anime)
     {
-        //
+        $data = $request->all();
+        $anime->update($data);
+        return redirect()->route('admin.animes.show', $anime)->with('message', $anime->title . " Has Been Edited");
     }
 
     /**

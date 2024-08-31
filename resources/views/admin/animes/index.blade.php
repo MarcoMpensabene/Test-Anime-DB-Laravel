@@ -34,7 +34,7 @@
                             <td>
                                 <div class="btn-group" role="group">
                                     <a  href="{{ route('admin.animes.show' ,  $anime)}}" class="btn btn-xs btn-info"  title="View">View</a>
-                                    <a  class="btn btn-xs btn-primary"  title="Edit">Edit</a>
+                                    <a href="{{ route('admin.animes.edit' ,  $anime)}}" class="btn btn-xs btn-primary"  title="Edit">Edit</a>
                                     <a  class="btn btn-xs btn-danger"  title="Delete">Delete</a>
                                 </div>
                             </td>
