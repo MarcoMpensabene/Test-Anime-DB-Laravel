@@ -29,7 +29,7 @@
                             <td>{{ $anime->type }}</td>
                             <td>{{ $anime->episodes }}</td>
                             <td><span class="badge{{ $anime->status == 'ONGOING' ? 'success' : ($anime->status == 'UPCOMING' ? 'info' : 'secondary') }}"style="color: green">{{ $anime->status }}</span></td>
-                            <td>{{ implode(', ', $anime->anime_season) }} </td>
+                            <td>{{is_array($anime->season) ?  implode(', ', $anime->anime_season) : $anime->season }} </td>
                             <td><img src="{{ $anime->thumbnail }}" alt="{{ $anime->title }}" class="img-thumbnail" style="max-width: 100px;"></td>
                             <td>
                                 <div class="btn-group" role="group">

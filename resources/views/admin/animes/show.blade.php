@@ -24,9 +24,13 @@
 
                     <h5 class="mt-3">Tags</h5>
                     <ul class="list-inline">
-                        @foreach ($anime->tags as $animeTag)
-                            <li class="list-inline-item"><span class="badge bg-dark ">{{$animeTag}}</span></li>
-                        @endforeach
+                        @if (is_array($anime->tags))
+                            @foreach ($anime->tags as $animeTag)
+                                <li class="list-inline-item"><span class="badge bg-dark ">{{$animeTag}}</span></li>
+                            @endforeach
+                        @else
+                            <li class="list-inline-item"><span class="badge bg-dark ">{{$anime->tags}}</span></li>
+                        @endif
                     </ul>
 
                     <h5 class="mt-3">Related Anime</h5>

@@ -21,7 +21,7 @@
 
                 <div class="mb-3">
                     <label for="sources" class="form-label">Sources (one per line)</label>
-                    <textarea class="form-control" id="sources" name="sources" rows="3">{{ old('sources', $anime->sources ? implode("/n", json_decode($anime->sources)) : '') }}</textarea>
+                    <textarea class="form-control" id="sources" name="sources[]" rows="3">{{ old('sources', $anime->sources ? implode("\n", $anime->sources) : '') }}</textarea>
                 </div>
 
                 <div class="mb-3">
@@ -81,17 +81,17 @@
 
                 <div class="mb-3">
                     <label for="synonyms" class="form-label">Synonyms (one per line)</label>
-                    <input class="form-control" id="synonyms" name="synonyms" rows="3">{{ old('synonyms', $anime->synonyms ? implode("/n", json_decode($anime->synonyms)) : '') }}</input>
+                    <textarea class="form-control" id="synonyms" name="synonyms[]" rows="3">{{ old('synonyms', $anime->synonyms ? implode("\n", $anime->synonyms) : '') }}</textarea>
                 </div>
 
                 <div class="mb-3">
                     <label for="related_anime" class="form-label">Related Anime (Title:Relation, one per line)</label>
-                    <textarea class="form-control" id="related_anime" name="related_anime" rows="3">{{ old('related_anime', $anime->related_anime ? implode("/n", array_map(function($item) { return $item->title . ':' . $item->relation; }, json_decode($anime->related_anime))) : '') }}</textarea>
+                    <textarea class="form-control" id="related_anime" name="related_anime[]" rows="3">{{ old('related_anime', $anime->related_anime ? implode("\n", array_map(function($item) { return $item['title'] . ':' . $item['relation']; }, $anime->related_anime)) : '') }}</textarea>
                 </div>
 
                 <div class="mb-3">
                     <label for="tags" class="form-label">Tags (comma-separated)</label>
-                    <input type="text" class="form-control" id="tags" name="tags" value="{{ old('tags', $anime->tags ? implode(', ', json_decode($anime->tags)) : '') }}">
+                    <input type="text" class="form-control" id="tags" name="tags" value="{{ old('tags', $anime->tags ? implode(', ', $anime->tags) : '') }}">
                 </div>
 
                 <input type="submit" value="@yield('page-title')" class="btn btn-primary btn-lg me-3">
